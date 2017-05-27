@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqServer.dao.QQUserDao"> 
+<!--<cache></cache>  -->
+
+<update id="updateQQuserMsg" parameterType="QQUser">
+   update QQUser set QQ_webname=#{QQ_webname},QQ_sign=#{QQ_sign},u_sex=#{u_sex},u_age=#{u_age},u_birthday=#{u_birthday},u_hometown=#{u_hometown},u_staycity=#{u_staycity},u_education=#{u_education},u_profession=#{u_profession} where QQ_No=#{QQ_No}
+</update>
+
+<update id="logout" parameterType="int">
+   update QQUser set isOnline=0 where QQ_No=#{QQ_No}
+</update>
+
+<select id="getQQfriends" parameterType="int" resultType="QQUser">
+   select * from QQUser where QQ_No in(select QQ_friend_No from QQ_friend where QQ_No=#{QQ_No})
+</select>
+
+<select id="getOnlineFriends" parameterType="int" resultType="QQUser">
+   select * from QQUser where QQ_No in(select q2.QQ_friend_No from QQUser q1,QQ_friend q2 where q1.QQ_No=q2.QQ_No and q1.QQ_No=#{QQ_No}) and isOnline=1
+</select>
+
+<select id="getQQUserByNo" parameterType="int" resultType="QQUser">
+   select * from QQUser where QQ_No=#{QQ_No}
+</select>
+
+<select id="getQQUserBywebname" parameterType="String" resultType="QQUser">
+   select * from QQUser where QQ_webname like concat(concat('%',#{QQ_webname}),'%')
+</select>
+
+</mapper>
