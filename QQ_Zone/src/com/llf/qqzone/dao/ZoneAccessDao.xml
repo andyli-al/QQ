@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.ZoneAccessDao"> 
+<!-- <cache></cache> -->
+
+<select id="checkZoneAccessUser" parameterType="String" resultType="QQUser">
+    select q.* from QQUser q,zoneaccesstoken z where q.QQ_No=z.QQ_No and z.zonetokenid=#{tokenId}
+</select>
+
+<select id="checkZoneBeAccessUser" parameterType="String" resultType="QQUser">
+    select q.* from QQUser q,zoneaccesstoken z where q.QQ_No=z.QQ_No_Access and z.zonetokenid=#{tokenId}
+</select>
+
+</mapper>

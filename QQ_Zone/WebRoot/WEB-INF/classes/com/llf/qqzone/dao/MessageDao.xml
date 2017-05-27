@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.MessageDao"> 
+<cache></cache>
+
+<insert id="addMessage" parameterType="Message">
+    insert into Message (messageContent,publishDate,QQ_No,QQ_friend_No) values(#{messageContent},#{publishDate},#{QQ_No},#{QQ_friend})
+</insert>
+
+<delete id="deleteMessage" parameterType="int">
+    delete from Message where messageId=#{messageId}
+</delete>
+
+<select id="getRowcount" parameterType="int" resultType="int">
+   select count(*) rowCount from Message where QQ_No=#{QQ_No}
+</select>
+
+<select id="getMessageInfoByPage" parameterType="PageData" resultMap="GetMessageInfo">
+   select * from Message m,QQUser q where m.QQ_friend_No=q.QQ_No and m.QQ_No=#{QQ_No} order by publishDate desc limit #{start_index},#{end_index}
+</select>
+
+<resultMap type="MessageInfo" id="GetMessageInfo">
+	<id property="messageId" column="messageId"/>
+	<result property="messageContent" column="messageContent"/>
+	<result property="publishDate" column="publishDate"/>
+	<result property="QQ_No" column="QQ_No"/>
+	
+	<association property="qquser" column="QQ_friend_No" javaType="QQUser">
+		<id property="QQ_No" column="QQ_No"/>
+		<result property="QQ_webname" column="QQ_webname"/>
+	</association>
+</resultMap>
+
+</mapper>

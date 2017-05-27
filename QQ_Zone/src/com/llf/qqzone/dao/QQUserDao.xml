@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.QQUserDao"> 
+<!-- <cache></cache> -->
+
+<insert id="register" parameterType="QQUser">
+    insert into QQUser (QQ_No,QQ_webname,QQ_pswd,u_sex,u_age,u_birthday,u_staycity) values(#{QQ_No},#{QQ_webname},#{QQ_pswd},#{u_sex},#{u_age},#{u_birthday},#{u_staycity})
+</insert>
+
+<select id="getQQNoMax" resultType="Object">
+    select max(QQ_No) from QQUser
+</select>
+
+<select id="login" parameterType="QQUser" resultType="QQUser">
+    select * from QQUser where QQ_No=#{QQ_No} and QQ_pswd=#{QQ_pswd}
+</select>
+
+<update id="editPersonalMsg" parameterType="QQUser">
+   update QQUser set QQ_webname=#{QQ_webname},QQ_sign=#{QQ_sign},u_sex=#{u_sex},u_age=#{u_age},u_birthday=#{u_birthday},u_hometown=#{u_hometown},u_staycity=#{u_staycity},u_education=#{u_education},u_profession=#{u_profession} where QQ_No=#{QQ_No}
+</update>
+
+</mapper>

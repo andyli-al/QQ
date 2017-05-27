@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.PhotoAlbumDao"> 
+<cache></cache>
+
+<insert id="addPhotoAlbum" parameterType="PhotoAlbum">
+    insert into PhotoAlbum (photoAlbumName,editDate,QQ_No) values(#{photoAlbumName},#{EditDate},#{QQ_No})
+</insert>
+
+<update id="updatePhotoAlbum" parameterType="PhotoAlbum">
+    update PhotoAlbum set photoAlbumName=#{photoAlbumName},editDate=#{EditDate} where photoAlbumId=#{photoAlbumId}
+</update>
+
+<update id="updatePhotoAlbumImg" parameterType="PhotoAlbum">
+    update PhotoAlbum set photoAlbumImg=#{photoAlbumImg} where photoAlbumId=#{photoAlbumId}
+</update>
+
+<delete id="deletePhotoAlbum" parameterType="int">
+    delete from PhotoAlbum where photoAlbumId=#{photoAlbumId}
+</delete>
+
+<select id="getPhotoAlbumList" parameterType="int" resultType="PhotoAlbum">
+    select * from PhotoAlbum where QQ_No=#{QQ_No} order by editDate desc
+</select>
+
+</mapper>

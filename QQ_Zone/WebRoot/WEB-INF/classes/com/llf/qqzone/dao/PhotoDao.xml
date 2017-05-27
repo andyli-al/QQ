@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.PhotoDao"> 
+<cache></cache>
+
+<insert id="addPhoto" parameterType="Photo">
+    insert into Photo (photoName,size,uploadDate,photoAlbumId) values(#{photoName},#{size},#{uploadDate},#{photoAlbumId})
+</insert>
+
+<delete id="deletePhoto" parameterType="int">
+    delete from Photo where photoId=#{photoId}
+</delete>
+
+<select id="getRowcount" parameterType="int" resultType="int">
+    select count(*) rowCount from Photo where photoAlbumId=#{photoAlbumId}
+</select>
+
+<select id="getPhotosByPage" parameterType="PageData" resultType="Photo">
+   select * from Photo where photoAlbumId=#{photoAlbumId} order by photoId desc limit #{start_index},#{end_index}
+</select>
+
+<select id="nextImg" parameterType="Photo" resultType="Photo">
+   select * from photo where photoId=(select min(photoId) from (select * from photo where photoAlbumId=#{photoAlbumId} and photoId>#{photoId}) a)
+</select>
+
+<select id="lastImg" parameterType="Photo" resultType="Photo">
+   select * from photo where photoId=(select max(photoId) from (select * from photo where photoAlbumId=#{photoAlbumId} and photoId&lt;#{photoId}) a)
+</select>
+
+</mapper>

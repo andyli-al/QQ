@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.TalkDao"> 
+<cache></cache>
+
+<insert id="addTalk" parameterType="Talk">
+    insert into Talk (talkcontent,talktime,QQ_No) values(#{talkcontent},#{talkTime},#{QQ_No})
+</insert>
+
+<select id="getAllTalk" parameterType="int" resultType="Talk">
+    select * from Talk where QQ_No=#{QQ_No} order by talktime desc
+</select>
+
+<delete id="deleteTalk" parameterType="int">
+   delete from Talk where talkId=#{talkId}
+</delete>
+
+</mapper>

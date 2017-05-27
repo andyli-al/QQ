@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.ZoneAccessPermissionDao"> 
+<cache></cache>
+
+<insert id="addPermission" parameterType="ZoneAccessPermission">
+    insert into ZoneAccessPermission (QQ_No,QQ_friend_No) values(#{QQ_No},#{QQ_friend})
+</insert>
+
+<delete id="deleteAllPermission" parameterType="int">
+    delete from ZoneAccessPermission where QQ_No=#{QQ_No}
+</delete>
+
+</mapper>

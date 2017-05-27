@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.llf.qqzone.dao.TalkCommentDao"> 
+<cache></cache>
+
+<insert id="addTalkComment" parameterType="TalkComment">
+    insert into TalkComment (talkcommentContent,publishDate,talkId,QQ_No) values(#{talkCommentContent},#{publishDate},#{talkId},#{QQ_No})
+</insert>
+
+<delete id="deleteTalkComment" parameterType="int">
+    delete from TalkComment where talkcommentId=#{talkCommentId}
+</delete>
+
+<select id="getAllCommentByTalk" parameterType="int" resultMap="getTalkCommentInfo">
+    select * from  QQUser q,TalkComment t where q.QQ_No=t.QQ_No and talkId=#{talkId}
+</select>
+
+<resultMap type="TalkCommentInfo" id="getTalkCommentInfo">
+	<id property="talkCommentId" column="talkCommentId"/>
+	<result property="talkCommentContent" column="talkCommentContent"/>
+	<result property="publishDate" column="publishDate"/>
+	<result property="talkId" column="talkId"/>
+	
+	<association property="qquser" column="QQ_No" javaType="QQUser">
+		<id property="QQ_No" column="QQ_No"/>
+		<result property="QQ_webname" column="QQ_webname"/>
+	</association>
+</resultMap>
+
+</mapper>
