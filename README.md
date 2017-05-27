@@ -1,0 +1,1 @@
+QQServer为QQ服务端工程，QQCient为QQ客户端工程，QQZone为QQ空间系统，前面二者为桌面版应用，后者为web系统
